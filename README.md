@@ -13,9 +13,14 @@ Pengertian SSH :\
 disini saya menggunakan beberapa command yang kemarin sudah di ajarkan di antaranya adalah:
 - git add . (untuk menambahkan file yang ingin di commit)
 - git commit -m "pesan commit" (untuk mengirimkan pesan commit)
+- git status (untuk melihat status file di dalam repository, apakah ada perubahan, file baru, atau file yang belum  di-commit)
+- git log (untuk melihat riwayat commit yang sudah dilakukan) 
+- git reset --hard (untuk mengembalikan repository ke kondisi commit tertentu secara permanen, menghapus perubahan yang belum di-commit)
 - git push (untuk mengirimkan file yang telah di commit ke repository)
 - git pull (untuk mengambil file dari repository ke local)
 - git branch (untuk membuat branch baru)
 - git checkout (untuk bergabung dengan branch yang telah dibuat)
+- git merge (untuk menggabungkan branch yang telah dibuat)
+
 
 [Dari  0-Version-Control-Git]
