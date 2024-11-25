@@ -38,21 +38,23 @@ adapun cara penerapan dan implementasinya adalah :
     }
 6. list :\n
     List<String> mahasiswa = ["Abdul", "Ahmad", "Ahmid"];
-7. map :\n
+7. map :
+   ```
     Map mahasiswa = {
         "nama" : "ibnu",
         "umur" : 20, 
     }
 
-    mahasiswa["nama"] 
-8. class :
-   
-    ``` class Mahasiswa {
+    mahasiswa["nama"]
+    
+9. class :
+   ```
+    class Mahasiswa {
         String nama;
         int umur;
 
         mahasiswa(this.nama, this.umur); //constructor
         }
 
-        mahasiswa1 = mahasiswa("safari", 20);``` 
+        mahasiswa1 = mahasiswa("safari", 20);
 
