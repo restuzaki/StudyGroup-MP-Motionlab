@@ -51,3 +51,5 @@ disini saya akan menjabarkan pengimplenetasian dari commad git diatas, adapun ca
 
 #untuk menambah pengetahuan saya, saya juga belajar melalui :\
 https://dev.to/yudhasdev/tutorial-github-3-bagaimana-cara-menggunakan-branch-dan-merge-di-github-3nj1
+
+//upadate week 0
