@@ -11,32 +11,47 @@ pada pada week ini saya mempelajari beberapa hal di antaranya adalah :
 8. class
 
 adapun cara penerapan dan implementasinya adalah :
-1.  variabel :\n
+
+1.  variabel :
+    ```
     String name = "slamet";\n
+
     //variable juga bisa di set kosong
-    int? number;\n
-2. oprasi aritmatika :\n
+    
+    int? number;
+
+2. oprasi aritmatika :
+    ```
     (+,-,/,%,*)/n
     int a = 10;
-3. percabangan :\n
+    
+3. percabangan :
+    ```
     if (condisi) {
          // kode yang akan di eksekusi jika kondisi benar
         } else {
             // kode yang akan di eksekusi jika kondisi salah
-        }\n
-4. pengulangan:\n
+        }
+
+4. pengulangan:
+    ```
     for (int i = 0; i < 10; i++) {
     // kode yang akan di eksekusi sebanyak 10 kali
-    }\n
+    }
+
 5. fungsi :
+    ```
     //prosedure (tidak mengembalikan return nilai)
     void main() {
         print("Hello, World!");
-    }\n
+    }
+
     double nilaiPi() {
         return 3.14;
     }
-6. list :\n
+
+6. list :
+    ```
     List<String> mahasiswa = ["Abdul", "Ahmad", "Ahmid"];
 7. map :
    ```
