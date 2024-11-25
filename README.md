@@ -47,12 +47,12 @@ adapun cara penerapan dan implementasinya adalah :
     mahasiswa["nama"] 
 8. class :
    
-    class Mahasiswa {
+    ``` class Mahasiswa {
         String nama;
         int umur;
 
         mahasiswa(this.nama, this.umur); //constructor
         }
 
-        mahasiswa1 = mahasiswa("safari", 20);
+        mahasiswa1 = mahasiswa("safari", 20);``` 
 
