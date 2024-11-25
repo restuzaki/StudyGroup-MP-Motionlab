@@ -45,7 +45,8 @@ adapun cara penerapan dan implementasinya adalah :
     }
 
     mahasiswa["nama"] 
-8. class :\n
+8. class :
+   
     class Mahasiswa {
         String nama;
         int umur;
