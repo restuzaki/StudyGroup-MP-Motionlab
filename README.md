@@ -14,7 +14,7 @@ adapun cara penerapan dan implementasinya adalah :
 
 1.  variabel :
     ```
-    String name = "slamet";\n
+    String name = "slamet";
 
     //variable juga bisa di set kosong
     
@@ -22,7 +22,7 @@ adapun cara penerapan dan implementasinya adalah :
 
 2. oprasi aritmatika :
     ```
-    (+,-,/,%,*)/n
+    (+,-,/,%,*)
     int a = 10;
     
 3. percabangan :
