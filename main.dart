@@ -1,7 +1,7 @@
 import 'dart:io';
 
 class Bank {
-  double _saldo = 0;
+  double _saldo = 30000;
 
   double get saldo => _saldo;
 
