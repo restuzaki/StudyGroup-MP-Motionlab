@@ -220,17 +220,37 @@ class MyApp extends StatelessWidget {
                 ),
                 SingleChildScrollView(
                   scrollDirection: Axis.vertical,
-                  child: Row(children: [
-                    Text(
-                      "Our Best Seller",
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: "Roboto",
-                        color: Colors.black,
-                      ),
-                    ),
-                  ]),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Our Best Seller",
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.w500,
+                            fontFamily: "Roboto",
+                            color: Colors.black,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 16,
+                        ),
+                        Column(
+                          children: [
+                            Container(
+                              width: 120,
+                              height: 170,
+                              color: Colors.blue,
+                              child: Center(
+                                child: Image.asset(
+                                  "assets/images/a.png",
+                                  fit: BoxFit.fitHeight,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ]),
                 ),
               ],
             ),
