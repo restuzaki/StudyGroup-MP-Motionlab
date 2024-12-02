@@ -70,11 +70,11 @@ class myApp extends StatelessWidget {
               ),
               Container(
                 width: double.infinity,
-                padding: EdgeInsets.symmetric(
+                padding: const EdgeInsets.symmetric(
                   vertical: 16,
                 ),
-                color: Color(0xff00623B),
-                child: Center(
+                color: const Color(0xff00623B),
+                child: const Center(
                   child: Text(
                     "Add To Bag",
                     style: TextStyle(
