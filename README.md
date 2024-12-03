@@ -1,15 +1,12 @@
+Week 2: Slicing UI dengan Flutter
 ---
 
-Week 2: Slicing UI dengan Flutter
 
 Apa Itu Widget?
 
 Widget adalah komponen fundamental dalam Flutter yang saling terhubung untuk membentuk antarmuka pengguna (UI). Dengan menggunakan konsep widget tree (parent-child), kita dapat menyusun berbagai elemen untuk menciptakan desain yang interaktif dan responsif.
 
 > Catatan: Semua yang terlihat di layar adalah widget!
-
-
-
 
 ---
 
