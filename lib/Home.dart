@@ -9,6 +9,48 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        bottomNavigationBar: ClipRRect(
+          child: BottomNavigationBar(
+            showSelectedLabels: false,
+            showUnselectedLabels: false,
+            type: BottomNavigationBarType.fixed,
+            backgroundColor: Color(0xFF00623B),
+            items: [
+              BottomNavigationBarItem(
+                icon: Image.asset(
+                  'assets/images/home.png',
+                  width: 23,
+                ),
+                backgroundColor: Color(0xFF00623B),
+                label: 'home',
+              ),
+              BottomNavigationBarItem(
+                icon: Image.asset(
+                  'assets/images/pay.png',
+                  width: 23,
+                ),
+                backgroundColor: Color(0xFF00623B),
+                label: 'pay',
+              ),
+              BottomNavigationBarItem(
+                icon: Image.asset(
+                  'assets/images/fav.png',
+                  width: 23,
+                ),
+                backgroundColor: Color(0xFF00623B),
+                label: 'favorite',
+              ),
+              BottomNavigationBarItem(
+                icon: Image.asset(
+                  'assets/images/notif.png',
+                  width: 23,
+                ),
+                backgroundColor: Color(0xFF00623B),
+                label: 'notification',
+              ),
+            ],
+          ),
+        ),
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -502,6 +544,9 @@ class MyApp extends StatelessWidget {
                       ),
                     ],
                   ),
+                ),
+                SizedBox(
+                  height: 10,
                 ),
               ],
             ),
