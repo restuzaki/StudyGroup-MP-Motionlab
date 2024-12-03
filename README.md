@@ -77,6 +77,3 @@ Stack: Menyusun elemen secara bertumpuk.
 
 ---
 
-Dengan memahami dan menguasai widget serta struktur proyek, Anda dapat membuat antarmuka pengguna yang responsif dan menarik dalam Flutter. Selamat mencoba!
-
----
