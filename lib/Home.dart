@@ -62,7 +62,7 @@ class MyApp extends StatelessWidget {
                   height: 20,
                 ),
                 Container(
-                  width: double.infinity,
+                  width: 500,
                   padding: EdgeInsets.symmetric(
                     vertical: 10,
                   ),
@@ -84,13 +84,16 @@ class MyApp extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(width: 16),
+                SizedBox(
+                  height: 10,
+                  width: 40,
+                ),
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: [
                       SizedBox(
-                        width: 16,
+                        width: 170,
                       ),
                       ElevatedButton(
                         onPressed: () {},
@@ -218,6 +221,9 @@ class MyApp extends StatelessWidget {
                 SizedBox(
                   width: 16,
                 ),
+                SizedBox(
+                  height: 16,
+                ),
                 SingleChildScrollView(
                   scrollDirection: Axis.vertical,
                   child: Column(
@@ -241,9 +247,7 @@ class MyApp extends StatelessWidget {
                         runSpacing: 10,
                         children: [
                           GestureDetector(
-                            onTap: () {
-                              Navigator.pushNamed(context, '/main');
-                            },
+                            onTap: () {},
                             child: Card(
                               color: Colors.white,
                               shape: RoundedRectangleBorder(
@@ -266,42 +270,231 @@ class MyApp extends StatelessWidget {
                                       padding: EdgeInsets.symmetric(
                                           horizontal: 14, vertical: 3),
                                       child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              'Mi Band 8 Pro',
-                                              style: TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w500,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Mi Band 8 Pro',
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 7,
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                r'$54.00',
+                                                style: TextStyle(
+                                                  fontSize: 18,
+                                                  color: Color(0xFF00623B),
+                                                ),
                                               ),
-                                            ),
-                                            SizedBox(
-                                              height: 7,
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(
-                                                  r'$54.00',
-                                                  style: TextStyle(
-                                                    fontSize: 18,
-                                                    color: Color(0xFF00623B),
-                                                  ),
-                                                ),
-                                                Icon(
-                                                  Icons.favorite,
-                                                  size: 20,
-                                                  color: Colors.red,
-                                                ),
-                                              ],
-                                            ),
-                                          ]),
+                                              Icon(
+                                                Icons.favorite,
+                                                size: 20,
+                                                color: Colors.red,
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ],
                                 ),
+                              ),
+                            ),
+                          ),
+                          Card(
+                            color: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Container(
+                              width:
+                                  (MediaQuery.of(context).size.width - 82) / 2,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Image.asset(
+                                    'assets/images/baju.png',
+                                  ),
+                                  SizedBox(
+                                    height: 9,
+                                  ),
+                                  Container(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 14, vertical: 3),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Lycra Men’s shirt',
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 7,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              r'$12.00',
+                                              style: TextStyle(
+                                                fontSize: 18,
+                                                color: Color(0xFF00623B),
+                                              ),
+                                            ),
+                                            Icon(
+                                              Icons.favorite,
+                                              size: 20,
+                                              color: Colors.grey,
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Card(
+                            color: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                          Card(
+                            color: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Container(
+                              width:
+                                  (MediaQuery.of(context).size.width - 82) / 2,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Image.asset(
+                                    'assets/images/headset.png',
+                                  ),
+                                  SizedBox(
+                                    height: 9,
+                                  ),
+                                  Container(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 14, vertical: 3),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Siberia 800',
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 7,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              r'$45.00',
+                                              style: TextStyle(
+                                                fontSize: 18,
+                                                color: Color(0xFF00623B),
+                                              ),
+                                            ),
+                                            Icon(
+                                              Icons.favorite,
+                                              size: 20,
+                                              color: Colors.grey,
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Card(
+                            color: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                          Card(
+                            color: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Container(
+                              width:
+                                  (MediaQuery.of(context).size.width - 82) / 2,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Image.asset(
+                                    'assets/images/sepatu.png',
+                                  ),
+                                  SizedBox(
+                                    height: 9,
+                                  ),
+                                  Container(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 14, vertical: 3),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Strawberry Frappuccino',
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 7,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              r'$35.00',
+                                              style: TextStyle(
+                                                fontSize: 18,
+                                                color: Color(0xFF00623B),
+                                              ),
+                                            ),
+                                            Icon(
+                                              Icons.favorite,
+                                              size: 20,
+                                              color: Colors.grey,
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
