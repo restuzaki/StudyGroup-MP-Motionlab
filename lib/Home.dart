@@ -266,10 +266,8 @@ class MyApp extends StatelessWidget {
                 SizedBox(
                   height: 16,
                 ),
-                SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                Expanded(
+                  child: ListView(
                     children: [
                       Text(
                         "Our Best Seller",
