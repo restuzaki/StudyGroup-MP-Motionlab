@@ -84,7 +84,7 @@ class MyApp extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 16),
+                SizedBox(width: 16),
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
@@ -221,36 +221,94 @@ class MyApp extends StatelessWidget {
                 SingleChildScrollView(
                   scrollDirection: Axis.vertical,
                   child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Our Best Seller",
-                          style: TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.w500,
-                            fontFamily: "Roboto",
-                            color: Colors.black,
-                          ),
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Our Best Seller",
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.w500,
+                          fontFamily: "Roboto",
+                          color: Colors.black,
                         ),
-                        SizedBox(
-                          height: 16,
-                        ),
-                        Column(
-                          children: [
-                            Container(
-                              width: 120,
-                              height: 170,
-                              color: Colors.blue,
-                              child: Center(
-                                child: Image.asset(
-                                  "assets/images/a.png",
-                                  fit: BoxFit.fitHeight,
+                      ),
+                      SizedBox(
+                        height: 16,
+                      ),
+                      Wrap(
+                        crossAxisAlignment: WrapCrossAlignment.center,
+                        spacing: 10,
+                        runSpacing: 10,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamed(context, '/main');
+                            },
+                            child: Card(
+                              color: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Container(
+                                width:
+                                    (MediaQuery.of(context).size.width - 82) /
+                                        2,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Image.asset(
+                                      'assets/images/a.png',
+                                    ),
+                                    SizedBox(
+                                      height: 9,
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 14, vertical: 3),
+                                      child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'Mi Band 8 Pro',
+                                              style: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: 7,
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  r'$54.00',
+                                                  style: TextStyle(
+                                                    fontSize: 18,
+                                                    color: Color(0xFF00623B),
+                                                  ),
+                                                ),
+                                                Icon(
+                                                  Icons.favorite,
+                                                  size: 20,
+                                                  color: Colors.red,
+                                                ),
+                                              ],
+                                            ),
+                                          ]),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
-                          ],
-                        ),
-                      ]),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
