@@ -17,12 +17,17 @@ class myWatch extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Icon(
-                    Icons.chevron_left_rounded,
-                    size: 33,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/');
+                    },
+                    child: Icon(
+                      Icons.chevron_left_rounded,
+                      size: 33,
+                    ),
                   ),
                   Text(
                     "Product Detail",
