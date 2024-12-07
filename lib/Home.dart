@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MyHome());
 }
 
-class MyApp extends StatelessWidget {
+class MyHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -14,14 +14,14 @@ class MyApp extends StatelessWidget {
             showSelectedLabels: false,
             showUnselectedLabels: false,
             type: BottomNavigationBarType.fixed,
-            backgroundColor: Color(0xFF00623B),
+            backgroundColor: const Color(0xFF00623B),
             items: [
               BottomNavigationBarItem(
                 icon: Image.asset(
                   'assets/images/home.png',
                   width: 23,
                 ),
-                backgroundColor: Color(0xFF00623B),
+                backgroundColor: const Color(0xFF00623B),
                 label: 'home',
               ),
               BottomNavigationBarItem(
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
                   'assets/images/pay.png',
                   width: 23,
                 ),
-                backgroundColor: Color(0xFF00623B),
+                backgroundColor: const Color(0xFF00623B),
                 label: 'pay',
               ),
               BottomNavigationBarItem(
@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
                   'assets/images/fav.png',
                   width: 23,
                 ),
-                backgroundColor: Color(0xFF00623B),
+                backgroundColor: const Color(0xFF00623B),
                 label: 'favorite',
               ),
               BottomNavigationBarItem(
@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
                   'assets/images/notif.png',
                   width: 23,
                 ),
-                backgroundColor: Color(0xFF00623B),
+                backgroundColor: const Color(0xFF00623B),
                 label: 'notification',
               ),
             ],
@@ -79,10 +79,10 @@ class MyApp extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 29,
                 ),
-                Text(
+                const Text(
                   "Our way of loving ",
                   style: TextStyle(
                     fontSize: 25,
@@ -91,7 +91,7 @@ class MyApp extends StatelessWidget {
                     color: Colors.black,
                   ),
                 ),
-                Text(
+                const Text(
                   "you back",
                   style: TextStyle(
                     fontSize: 25,
@@ -100,25 +100,25 @@ class MyApp extends StatelessWidget {
                     color: Colors.black,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Container(
                   width: 500,
-                  padding: EdgeInsets.symmetric(
+                  padding: const EdgeInsets.symmetric(
                     vertical: 10,
                   ),
                   child: TextField(
                     decoration: InputDecoration(
                       hintText: "Search",
-                      hintStyle: TextStyle(
+                      hintStyle: const TextStyle(
                         fontSize: 16,
                         color: Colors.grey,
                       ),
-                      prefixIcon: Icon(Icons.search_outlined),
+                      prefixIcon: const Icon(Icons.search_outlined),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(26.5),
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: Colors.grey,
                           width: 2.0,
                         ),
@@ -126,7 +126,7 @@ class MyApp extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                   width: 40,
                 ),
@@ -134,7 +134,7 @@ class MyApp extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         width: 170,
                       ),
                       ElevatedButton(
@@ -163,9 +163,9 @@ class MyApp extends StatelessWidget {
                             ),
                           ),
                         ),
-                        child: Text("All"),
+                        child: const Text("All"),
                       ),
-                      SizedBox(width: 16),
+                      const SizedBox(width: 16),
                       ElevatedButton(
                         onPressed: () {},
                         style: ButtonStyle(
@@ -192,9 +192,9 @@ class MyApp extends StatelessWidget {
                             ),
                           ),
                         ),
-                        child: Text("Watch"),
+                        child: const Text("Watch"),
                       ),
-                      SizedBox(width: 16),
+                      const SizedBox(width: 16),
                       ElevatedButton(
                         onPressed: () {},
                         style: ButtonStyle(
@@ -221,9 +221,9 @@ class MyApp extends StatelessWidget {
                             ),
                           ),
                         ),
-                        child: Text("Shirt"),
+                        child: const Text("Shirt"),
                       ),
-                      SizedBox(width: 16),
+                      const SizedBox(width: 16),
                       ElevatedButton(
                         onPressed: () {},
                         style: ButtonStyle(
@@ -250,26 +250,26 @@ class MyApp extends StatelessWidget {
                             ),
                           ),
                         ),
-                        child: Text(
+                        child: const Text(
                           "Shoes",
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 16,
                       ),
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 16,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 ),
                 Expanded(
                   child: ListView(
                     children: [
-                      Text(
+                      const Text(
                         "Our Best Seller",
                         style: TextStyle(
                           fontSize: 22,
@@ -278,7 +278,7 @@ class MyApp extends StatelessWidget {
                           color: Colors.black,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 16,
                       ),
                       Wrap(
@@ -287,7 +287,9 @@ class MyApp extends StatelessWidget {
                         runSpacing: 10,
                         children: [
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.pushNamed(context, '/watch');
+                            },
                             child: Card(
                               color: Colors.white,
                               shape: RoundedRectangleBorder(
@@ -303,13 +305,13 @@ class MyApp extends StatelessWidget {
                                     Image.asset(
                                       'assets/images/a.png',
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 9,
                                     ),
                                     Container(
-                                      padding: EdgeInsets.symmetric(
+                                      padding: const EdgeInsets.symmetric(
                                           horizontal: 14, vertical: 3),
-                                      child: Column(
+                                      child: const Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
@@ -363,13 +365,13 @@ class MyApp extends StatelessWidget {
                                   Image.asset(
                                     'assets/images/baju.png',
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 9,
                                   ),
                                   Container(
-                                    padding: EdgeInsets.symmetric(
+                                    padding: const EdgeInsets.symmetric(
                                         horizontal: 14, vertical: 3),
-                                    child: Column(
+                                    child: const Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
@@ -428,13 +430,13 @@ class MyApp extends StatelessWidget {
                                   Image.asset(
                                     'assets/images/headset.png',
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 9,
                                   ),
                                   Container(
-                                    padding: EdgeInsets.symmetric(
+                                    padding: const EdgeInsets.symmetric(
                                         horizontal: 14, vertical: 3),
-                                    child: Column(
+                                    child: const Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
@@ -493,13 +495,13 @@ class MyApp extends StatelessWidget {
                                   Image.asset(
                                     'assets/images/sepatu.png',
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 9,
                                   ),
                                   Container(
-                                    padding: EdgeInsets.symmetric(
+                                    padding: const EdgeInsets.symmetric(
                                         horizontal: 14, vertical: 3),
-                                    child: Column(
+                                    child: const Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
@@ -543,7 +545,7 @@ class MyApp extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
               ],
