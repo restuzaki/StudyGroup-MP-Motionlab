@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_motion/Home.dart';
+import 'package:project_motion/login.dart';
 import 'package:project_motion/watch.dart';
 
 void main() {
@@ -13,7 +14,8 @@ class myApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: <String, Widget Function(BuildContext)>{
-        '/': (context) => MyHome(),
+        '/': (context) => MyLogin(),
+        '/home': (context) => MyHome(),
         '/watch': (context) => const myWatch(),
       },
     );

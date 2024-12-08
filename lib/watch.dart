@@ -22,7 +22,7 @@ class myWatch extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, '/');
+                      Navigator.pushNamed(context, '/home');
                     },
                     child: Icon(
                       Icons.chevron_left_rounded,
