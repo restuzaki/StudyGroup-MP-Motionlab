@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_motion/Home.dart';
 import 'package:project_motion/login.dart';
+import 'package:project_motion/register.dart';
 import 'package:project_motion/watch.dart';
 
 void main() {
@@ -17,6 +18,7 @@ class myApp extends StatelessWidget {
         '/': (context) => MyLogin(),
         '/home': (context) => MyHome(),
         '/watch': (context) => const myWatch(),
+        '/register': (context) => MyRegister(),
       },
     );
   }

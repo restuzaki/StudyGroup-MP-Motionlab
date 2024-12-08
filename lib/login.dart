@@ -55,6 +55,8 @@ class MyLogin extends StatelessWidget {
               'Happy Shopping All',
               textAlign: TextAlign.center,
               style: TextStyle(
+                color: Colors.grey,
+                fontWeight: FontWeight.w300,
                 fontSize: 16,
               ),
             ),
@@ -141,7 +143,7 @@ class MyLogin extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, '/home');
+                    Navigator.pushNamed(context, '/register');
                   },
                   child: Text(
                     ' Register',
