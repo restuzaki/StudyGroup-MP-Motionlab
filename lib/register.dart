@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 void main() {
@@ -123,7 +121,7 @@ class MyRegister extends StatelessWidget {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(context, '/home');
+                        Navigator.pushNamed(context, '/');
                       },
                       child: Container(
                         width: 400,

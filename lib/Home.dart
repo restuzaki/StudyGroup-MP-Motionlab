@@ -26,14 +26,6 @@ class MyHome extends StatelessWidget {
               ),
               BottomNavigationBarItem(
                 icon: Image.asset(
-                  'assets/images/pay.png',
-                  width: 23,
-                ),
-                backgroundColor: const Color(0xFF00623B),
-                label: 'pay',
-              ),
-              BottomNavigationBarItem(
-                icon: Image.asset(
                   'assets/images/fav.png',
                   width: 23,
                 ),
@@ -42,7 +34,7 @@ class MyHome extends StatelessWidget {
               ),
               BottomNavigationBarItem(
                 icon: Image.asset(
-                  'assets/images/notif.png',
+                  'assets/images/person.png',
                   width: 23,
                 ),
                 backgroundColor: const Color(0xFF00623B),
@@ -72,10 +64,15 @@ class MyHome extends StatelessWidget {
                       width: 47,
                       height: 47,
                     ),
-                    Image.asset(
-                      "assets/images/bag.png",
-                      width: 23,
-                      height: 23,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/cart');
+                      },
+                      child: Image.asset(
+                        "assets/images/bag.png",
+                        width: 23,
+                        height: 23,
+                      ),
                     ),
                   ],
                 ),
