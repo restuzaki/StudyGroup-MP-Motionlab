@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project_motion/Home.dart';
-import 'package:project_motion/cart.dart';
-import 'package:project_motion/login.dart';
-import 'package:project_motion/register.dart';
-import 'package:project_motion/transaksi.dart';
-import 'package:project_motion/watch.dart';
+import 'package:project_motion/pages/Home.dart';
+import 'package:project_motion/pages/cart.dart';
+import 'package:project_motion/pages/login.dart';
+import 'package:project_motion/pages/register.dart';
+import 'package:project_motion/pages/transaksi.dart';
+import 'package:project_motion/pages/watch.dart';
 
 void main() {
   runApp(const MyApp());
