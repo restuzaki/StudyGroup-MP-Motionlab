@@ -1,162 +1,182 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:project_motion/controller/cart_controller.dart';
+import 'package:project_motion/widgets/custom_bottom.dart';
+import 'package:project_motion/models/product_model.dart';
+import 'package:project_motion/utils/data_dummy.dart';
 
-void main() {
-  runApp(const MyCart());
-}
-
-class MyCart extends StatelessWidget {
-  const MyCart({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: HomePage(),
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class myCart extends GetView<CartController> {
+  const myCart({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final cartController = Get.put(CartController());
-    return Obx(
-      () => Scaffold(
-        appBar: AppBar(
-          leading: Padding(
-            padding: const EdgeInsets.only(left: 20),
-            child: GestureDetector(
-              onTap: () => Get.back(),
-              child: Icon(
-                Icons.chevron_left_outlined,
-                size: 33,
-              ),
-            ),
-          ),
-          leadingWidth: 31,
-          title: Center(
-            child: const Text("My Cart"),
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () => Navigator.pop(context),
+          icon: const Icon(Icons.arrow_back_ios_new_rounded),
         ),
-        body: Column(
+        title: const Text('My Cart'),
+        centerTitle: true,
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Column(
           children: [
-            Card(
-              child: ListTile(
-                leading: Container(
-                  height: 50,
-                  width: 50,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.29),
-                    image: DecorationImage(
-                      image: AssetImage("assets/images/a.png"),
-                    ),
-                  ),
-                ),
-                title: const Text(
-                  "Mi Band 8 Pro - Brand New",
-                  style: TextStyle(
-                    fontSize: 14,
-                  ),
-                ),
-                subtitle: Text(
-                  "\$${cartController.totalPrice.value.toStringAsFixed(2)}",
-                  style: TextStyle(color: Color(0xff00623B)),
-                ),
-                trailing: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 4),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Color(0xff00623B)),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButton(
-                        onPressed: cartController.quantityIncrement,
-                        icon: Icon(Icons.add),
-                        color: Color(0xff00623B),
+            Obx(() => ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: controller.quantities.length,
+                  itemBuilder: (context, index) {
+                    String productId =
+                        controller.quantities.keys.elementAt(index);
+                    ProductModel product =
+                        DataDummy.listDummyProducts.firstWhere(
+                      (p) => p.id == productId,
+                    );
+
+                    return Container(
+                      height: 150.h,
+                      margin: const EdgeInsets.only(bottom: 16),
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFFCFFFE),
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            blurRadius: 5,
+                            offset: const Offset(0, 0),
+                          ),
+                        ],
                       ),
-                      Text(
-                        "${cartController.quantity.value}",
-                        style: TextStyle(
-                          fontSize: 16,
-                        ),
+                      child: Row(
+                        children: [
+                          // Product image
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: Image.asset(product.image),
+                          ),
+                          const SizedBox(width: 16),
+                          Expanded(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          product.name,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleLarge,
+                                        ),
+                                        const SizedBox(height: 4),
+                                        Text(
+                                          '\$${product.price.toStringAsFixed(2)}',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleLarge!
+                                              .copyWith(
+                                                color: const Color(0xFF00623B),
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 8,
+                                        vertical: 8,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                          color: const Color(0xFF00623B),
+                                        ),
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          InkWell(
+                                            onTap: () => controller
+                                                .decrementQuantity(productId),
+                                            child: const Icon(
+                                              Icons.remove,
+                                              color: Color(0xFF00623B),
+                                            ),
+                                          ),
+                                          const SizedBox(width: 12),
+                                          Text(
+                                              '${controller.getQuantity(productId)}'),
+                                          const SizedBox(width: 12),
+                                          InkWell(
+                                            onTap: () => controller
+                                                .incrementQuantity(productId),
+                                            child: const Icon(
+                                              Icons.add,
+                                              color: Color(0xFF00623B),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
-                      IconButton(
-                        onPressed: cartController.quantityDecrement,
-                        icon: Icon(Icons.remove),
-                        color: Color(0xff00623B),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            Card(
-              child: ListTile(
-                leading: Image.asset("assets/images/baju.png"),
-                title: const Text("Lycra Men’s shirt"),
-                subtitle: Text(
-                  '\$${cartController.totalPrice1.value.toStringAsFixed(2)}',
-                  style: TextStyle(color: Color(0xff00623B)),
-                ),
-                trailing: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 4),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Color(0xff00623B)),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButton(
-                        onPressed: cartController.quantityIncrement1,
-                        icon: Icon(Icons.add),
-                        color: Color(0xff00623B),
-                      ),
-                      Text(
-                        "${cartController.quantity1.value}",
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.black,
-                        ),
-                      ),
-                      IconButton(
-                        onPressed: cartController.quantityDecrement1,
-                        icon: Icon(Icons.remove),
-                        color: Color(0xff00623B),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+                    );
+                  },
+                )),
           ],
         ),
-        bottomNavigationBar: Padding(
-          padding: const EdgeInsets.all(23),
-          child: GestureDetector(
-            onTap: () => Get.toNamed('/transaksi'),
-            child: Container(
-              height: 55,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: Color(0xff00623B),
-              ),
-              child: Center(
-                child: Text(
-                  'Buy Now',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white,
-                  ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(16),
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height * 0.15,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Flexible(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Total',
+                      style: Theme.of(context).textTheme.headlineMedium,
+                    ),
+                    Obx(
+                      () => Text(
+                        '\$${controller.calculateTotal().toStringAsFixed(2)}',
+                        style: Theme.of(context).textTheme.headlineMedium,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ),
+              const SizedBox(height: 1),
+              const Divider(color: Colors.grey),
+              const SizedBox(height: 10),
+              CustomButton(
+                text: 'Buy Now',
+                onTap: () {
+                  Get.toNamed('/transaksi');
+                },
+              ),
+            ],
           ),
         ),
       ),

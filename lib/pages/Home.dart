@@ -184,7 +184,7 @@ class _myHomeState extends State<myHome> {
                         onTap: () {
                           Navigator.pushNamed(
                             context,
-                            '/watch',
+                            '/detail',
                             arguments: data.id,
                           );
                         },

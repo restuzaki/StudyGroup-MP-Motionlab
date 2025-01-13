@@ -1,40 +1,58 @@
 import 'package:get/get.dart';
+import 'package:flutter/material.dart';
+import 'package:project_motion/models/product_model.dart';
+import 'package:project_motion/utils/data_dummy.dart';
 
 class CartController extends GetxController {
-  final quantity = 0.obs;
-  final quantity1 = 0.obs;
-  final unitPrice = 54.00;
-  final unitPrice1 = 12.00;
-  final totalPrice = 0.0.obs;
-  final totalPrice1 = 0.0.obs;
+  RxDouble totalProduct = 0.0.obs;
+  RxMap<String, int> quantities = <String, int>{}.obs;
 
-  void updateTotalPrice() {
-    totalPrice.value = quantity.value * unitPrice;
-  }
-
-  void updateTotalPrice1() {
-    totalPrice1.value = quantity1.value * unitPrice1;
-  }
-
-  void quantityIncrement() {
-    quantity.value++;
+  void incrementQuantity(String productId) {
+    if (quantities.containsKey(productId)) {
+      quantities[productId] = quantities[productId]! + 1;
+    } else {
+      quantities[productId] = 1;
+    }
     update();
-    updateTotalPrice();
   }
 
-  void quantityDecrement() {
-    if (quantity.value > 0) quantity.value--;
-    updateTotalPrice();
+  void decrementQuantity(String productId) {
+    if (quantities.containsKey(productId)) {
+      if (quantities[productId]! <= 1) {
+        Get.defaultDialog(
+          title: 'Remove Item',
+          middleText: 'Do you want to remove this item from cart?',
+          textConfirm: 'Yes',
+          textCancel: 'No',
+          confirmTextColor: Colors.white,
+          onConfirm: () {
+            quantities.remove(productId);
+            update();
+            Get.back();
+          },
+          buttonColor: const Color(0xFF00623B),
+          contentPadding: const EdgeInsets.all(20),
+          titlePadding: const EdgeInsets.only(top: 20),
+        );
+      } else {
+        quantities[productId] = quantities[productId]! - 1;
+        update();
+      }
+    }
   }
 
-  void quantityIncrement1() {
-    quantity1.value++;
-    update();
-    updateTotalPrice1();
+  int getQuantity(String productId) {
+    return quantities[productId] ?? 0;
   }
 
-  void quantityDecrement1() {
-    if (quantity1.value > 0) quantity1.value--;
-    updateTotalPrice1();
+  double calculateTotal() {
+    double total = 0.0;
+    quantities.forEach((productId, quantity) {
+      ProductModel product = DataDummy.listDummyProducts.firstWhere(
+        (product) => product.id == productId,
+      );
+      total += product.price * quantity;
+    });
+    return total;
   }
 }
