@@ -1,554 +1,271 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:project_motion/models/product_model.dart';
+import 'package:project_motion/utils/data_dummy.dart';
+import 'package:project_motion/widgets/navbar.dart';
 
-void main() {
-  runApp(MyHome());
+class myHome extends StatefulWidget {
+  const myHome({super.key});
+
+  @override
+  State<myHome> createState() => _myHomeState();
 }
 
-class MyHome extends StatelessWidget {
+class _myHomeState extends State<myHome> {
+  String selectedCategory = 'All';
+  List<ProductModel> filteredProducts = [];
+  int _currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    filteredProducts = DataDummy.listDummyProducts;
+  }
+
+  void filterProducts(String category) {
+    setState(() {
+      selectedCategory = category;
+      if (category == 'All') {
+        filteredProducts = DataDummy.listDummyProducts;
+      } else {
+        filteredProducts = DataDummy.listDummyProducts
+            .where((product) => product.type == category)
+            .toList();
+      }
+    });
+  }
+
+  void _onTabTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+
+    if (index == 1) {
+      Navigator.pushNamed(context, '/favorites');
+    } else if (index == 2) {
+      Navigator.pushNamed(context, '/profile');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        bottomNavigationBar: ClipRRect(
-          child: BottomNavigationBar(
-            showSelectedLabels: false,
-            showUnselectedLabels: false,
-            type: BottomNavigationBarType.fixed,
-            backgroundColor: const Color(0xFF00623B),
-            items: [
-              BottomNavigationBarItem(
-                icon: Image.asset(
-                  'assets/images/home.png',
-                  width: 23,
-                ),
-                backgroundColor: const Color(0xFF00623B),
-                label: 'home',
-              ),
-              BottomNavigationBarItem(
-                icon: Image.asset(
-                  'assets/images/fav.png',
-                  width: 23,
-                ),
-                backgroundColor: const Color(0xFF00623B),
-                label: 'favorite',
-              ),
-              BottomNavigationBarItem(
-                icon: Image.asset(
-                  'assets/images/person.png',
-                  width: 23,
-                ),
-                backgroundColor: const Color(0xFF00623B),
-                label: 'notification',
-              ),
-            ],
-          ),
-        ),
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Image.asset(
-                      "assets/images/menubar.png",
-                      fit: BoxFit.cover,
-                      width: 20,
-                      height: 15,
-                    ),
-                    Image.asset(
-                      "assets/images/logo.png",
-                      fit: BoxFit.contain,
-                      width: 47,
-                      height: 47,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, '/cart');
-                      },
-                      child: Image.asset(
-                        "assets/images/bag.png",
-                        width: 23,
-                        height: 23,
+    return Scaffold(
+      body: SafeArea(
+        child: IndexedStack(
+          index: _currentIndex,
+          children: [
+            SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        onPressed: () {},
+                        icon: const Icon(Icons.menu_rounded),
+                      ),
+                      Image.asset(
+                        'assets/images/logo.png',
+                        height: kToolbarHeight - 16.h,
+                        fit: BoxFit.contain,
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/cart');
+                        },
+                        icon: const Icon(
+                          Icons.shopping_bag_outlined,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 40),
+                  Text(
+                    'Our way of loving \nyou back',
+                    style: Theme.of(context)
+                        .textTheme
+                        .displayLarge!
+                        .copyWith(fontSize: 25.sp),
+                  ),
+                  const SizedBox(height: 30),
+                  SearchBar(
+                    onTapOutside: (event) {
+                      FocusScope.of(context).unfocus();
+                    },
+                    elevation: const WidgetStatePropertyAll(0),
+                    leading: const Padding(
+                      padding: EdgeInsets.only(left: 16),
+                      child: Icon(
+                        Icons.search,
+                        color: Color(0xFF868A91),
                       ),
                     ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 29,
-                ),
-                const Text(
-                  "Our way of loving ",
-                  style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: "Inter",
-                    color: Colors.black,
-                  ),
-                ),
-                const Text(
-                  "you back",
-                  style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: "Inter",
-                    color: Colors.black,
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  width: 500,
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 10,
-                  ),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      hintText: "Search",
-                      hintStyle: const TextStyle(
-                        fontSize: 16,
+                    hintText: 'Search',
+                    hintStyle: const WidgetStatePropertyAll(
+                      TextStyle(
                         color: Colors.grey,
                       ),
-                      prefixIcon: const Icon(Icons.search_outlined),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(26.5),
-                        borderSide: const BorderSide(
-                          color: Colors.grey,
-                          width: 2.0,
-                        ),
-                      ),
+                    ),
+                    backgroundColor: const WidgetStatePropertyAll(
+                      Color(0xFFF2F2F2),
                     ),
                   ),
-                ),
-                const SizedBox(
-                  height: 10,
-                  width: 40,
-                ),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      const SizedBox(
-                        width: 170,
-                      ),
-                      ElevatedButton(
-                        onPressed: () {},
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.resolveWith<Color>(
-                                  (states) {
-                            if (states.contains(MaterialState.pressed)) {
-                              return Colors.green;
-                            }
-                            return Colors.white;
-                          }),
-                          foregroundColor:
-                              MaterialStateProperty.resolveWith<Color>(
-                                  (states) {
-                            if (states.contains(MaterialState.pressed)) {
-                              return Colors.white;
-                            }
-                            return Colors.grey;
-                          }),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(22.5),
+                  const SizedBox(height: 30),
+                  SizedBox(
+                    height: 40.h,
+                    child: ListView.separated(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      clipBehavior: Clip.none,
+                      itemCount: DataDummy.listDummyCategories.length,
+                      separatorBuilder: (context, index) =>
+                          const SizedBox(width: 12),
+                      itemBuilder: (context, index) {
+                        final String data =
+                            DataDummy.listDummyCategories[index];
+
+                        return InkWell(
+                          borderRadius: BorderRadius.circular(50),
+                          onTap: () => filterProducts(data),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 24,
+                              vertical: 4,
+                            ),
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: selectedCategory == data
+                                  ? const Color(0xFF00623B)
+                                  : const Color(0xFFF2F2F2),
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                            child: Text(
+                              data,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleLarge!
+                                  .copyWith(
+                                    color: selectedCategory == data
+                                        ? Colors.white
+                                        : const Color(0xFF4D4D4D),
+                                  ),
                             ),
                           ),
-                        ),
-                        child: const Text("All"),
-                      ),
-                      const SizedBox(width: 16),
-                      ElevatedButton(
-                        onPressed: () {},
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.resolveWith<Color>(
-                                  (states) {
-                            if (states.contains(MaterialState.pressed)) {
-                              return Colors.green;
-                            }
-                            return Colors.white;
-                          }),
-                          foregroundColor:
-                              MaterialStateProperty.resolveWith<Color>(
-                                  (states) {
-                            if (states.contains(MaterialState.pressed)) {
-                              return Colors.white;
-                            }
-                            return Colors.grey;
-                          }),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(22.5),
-                            ),
-                          ),
-                        ),
-                        child: const Text("Watch"),
-                      ),
-                      const SizedBox(width: 16),
-                      ElevatedButton(
-                        onPressed: () {},
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.resolveWith<Color>(
-                                  (states) {
-                            if (states.contains(MaterialState.pressed)) {
-                              return Colors.green;
-                            }
-                            return Colors.white;
-                          }),
-                          foregroundColor:
-                              MaterialStateProperty.resolveWith<Color>(
-                                  (states) {
-                            if (states.contains(MaterialState.pressed)) {
-                              return Colors.white;
-                            }
-                            return Colors.grey;
-                          }),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(22.5),
-                            ),
-                          ),
-                        ),
-                        child: const Text("Shirt"),
-                      ),
-                      const SizedBox(width: 16),
-                      ElevatedButton(
-                        onPressed: () {},
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.resolveWith<Color>(
-                                  (states) {
-                            if (states.contains(MaterialState.pressed)) {
-                              return Colors.green;
-                            }
-                            return Colors.white;
-                          }),
-                          foregroundColor:
-                              MaterialStateProperty.resolveWith<Color>(
-                                  (states) {
-                            if (states.contains(MaterialState.pressed)) {
-                              return Colors.white;
-                            }
-                            return Colors.grey;
-                          }),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(22.5),
-                            ),
-                          ),
-                        ),
-                        child: const Text(
-                          "Shoes",
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 16,
-                      ),
-                    ],
+                        );
+                      },
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  width: 16,
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                Expanded(
-                  child: ListView(
-                    children: [
-                      const Text(
-                        "Our Best Seller",
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.w500,
-                          fontFamily: "Roboto",
-                          color: Colors.black,
+                  const SizedBox(height: 30),
+                  Text(
+                    'Our Best Seller',
+                    style: Theme.of(context).textTheme.headlineLarge!.copyWith(
+                          fontSize: 20.sp,
                         ),
-                      ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      Wrap(
-                        crossAxisAlignment: WrapCrossAlignment.center,
-                        spacing: 10,
-                        runSpacing: 10,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.pushNamed(context, '/watch');
-                            },
-                            child: Card(
-                              color: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
+                  ),
+                  const SizedBox(height: 20),
+                  GridView.builder(
+                    shrinkWrap: true,
+                    primary: false,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 20,
+                      mainAxisSpacing: 20,
+                      childAspectRatio: 0.67,
+                    ),
+                    itemCount: filteredProducts.length,
+                    itemBuilder: (context, index) {
+                      final ProductModel data = filteredProducts[index];
+
+                      return InkWell(
+                        borderRadius: BorderRadius.circular(12),
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            '/watch',
+                            arguments: data.id,
+                          );
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            color: const Color(0xFFFCFFFE),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                blurRadius: 5,
+                                offset: const Offset(0, 0),
                               ),
-                              child: Container(
-                                width:
-                                    (MediaQuery.of(context).size.width - 82) /
-                                        2,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Image.asset(
-                                      'assets/images/a.png',
-                                    ),
-                                    const SizedBox(
-                                      height: 9,
-                                    ),
-                                    Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 14, vertical: 3),
-                                      child: const Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'Mi Band 8 Pro',
-                                            style: TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height: 7,
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                r'$54.00',
-                                                style: TextStyle(
-                                                  fontSize: 18,
-                                                  color: Color(0xFF00623B),
-                                                ),
-                                              ),
-                                              Icon(
-                                                Icons.favorite,
-                                                size: 20,
-                                                color: Colors.red,
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
+                            ],
+                          ),
+                          child: Column(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(12),
+                                child: Image.asset(
+                                  data.image,
+                                  fit: BoxFit.contain,
                                 ),
                               ),
-                            ),
-                          ),
-                          Card(
-                            color: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Container(
-                              width:
-                                  (MediaQuery.of(context).size.width - 82) / 2,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Image.asset(
-                                    'assets/images/baju.png',
-                                  ),
-                                  const SizedBox(
-                                    height: 9,
-                                  ),
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 14, vertical: 3),
-                                    child: const Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                  left: 8,
+                                  top: 8,
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      data.name,
+                                      style:
+                                          const TextStyle(color: Colors.black),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          'Lycra Men’s shirt',
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 7,
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              r'$12.00',
-                                              style: TextStyle(
-                                                fontSize: 18,
-                                                color: Color(0xFF00623B),
+                                          '\$${data.price}',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineLarge!
+                                              .copyWith(
+                                                color: const Color(0xFF00623B),
                                               ),
-                                            ),
-                                            Icon(
-                                              Icons.favorite,
-                                              size: 20,
-                                              color: Colors.grey,
-                                            ),
-                                          ],
                                         ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Card(
-                            color: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                          Card(
-                            color: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Container(
-                              width:
-                                  (MediaQuery.of(context).size.width - 82) / 2,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Image.asset(
-                                    'assets/images/headset.png',
-                                  ),
-                                  const SizedBox(
-                                    height: 9,
-                                  ),
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 14, vertical: 3),
-                                    child: const Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Siberia 800',
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w500,
+                                        IconButton(
+                                          onPressed: () {},
+                                          icon: Icon(
+                                            Icons.favorite,
+                                            color: data.isFavorite
+                                                ? Colors.red
+                                                : Colors.grey,
                                           ),
-                                        ),
-                                        SizedBox(
-                                          height: 7,
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              r'$45.00',
-                                              style: TextStyle(
-                                                fontSize: 18,
-                                                color: Color(0xFF00623B),
-                                              ),
-                                            ),
-                                            Icon(
-                                              Icons.favorite,
-                                              size: 20,
-                                              color: Colors.grey,
-                                            ),
-                                          ],
-                                        ),
+                                        )
                                       ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
+                                    )
+                                  ],
+                                ),
+                              )
+                            ],
                           ),
-                          Card(
-                            color: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                          Card(
-                            color: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Container(
-                              width:
-                                  (MediaQuery.of(context).size.width - 82) / 2,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Image.asset(
-                                    'assets/images/sepatu.png',
-                                  ),
-                                  const SizedBox(
-                                    height: 9,
-                                  ),
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 14, vertical: 3),
-                                    child: const Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Strawberry Frappuccino',
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 7,
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              r'$35.00',
-                                              style: TextStyle(
-                                                fontSize: 18,
-                                                color: Color(0xFF00623B),
-                                              ),
-                                            ),
-                                            Icon(
-                                              Icons.favorite,
-                                              size: 20,
-                                              color: Colors.grey,
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+                        ),
+                      );
+                    },
                   ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-              ],
+                  const SizedBox(height: 20),
+                ],
+              ),
             ),
-          ),
+          ],
         ),
+      ),
+      bottomNavigationBar: bottomNavbar(
+        currentIndex: _currentIndex,
+        onTap: _onTabTapped,
       ),
     );
   }
