@@ -30,10 +30,10 @@ class MyApp extends StatelessWidget {
             initialRoute: '/',
             getPages: [
               GetPage(name: '/', page: () => MyLogin()),
-              GetPage(name: '/home', page: () => myHome()),
+              GetPage(name: '/home', page: () => MyHome()),
               GetPage(name: '/watch', page: () => const myWatch()),
               GetPage(name: '/register', page: () => MyRegister()),
-              GetPage(name: '/cart', page: () => myCart()),
+              GetPage(name: '/cart', page: () => MyCart()),
               GetPage(name: '/transaksi', page: () => MyTransaksi()),
               GetPage(name: '/detail', page: () => myDetail()),
             ],

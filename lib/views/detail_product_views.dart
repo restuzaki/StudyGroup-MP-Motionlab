@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_motion/widgets/custom_bottom.dart';
-import 'package:project_motion/controller/cart_controller.dart';
 import 'package:project_motion/models/product_model.dart';
+import 'package:project_motion/controller/cart_controller.dart';
 import 'package:project_motion/utils/data_dummy.dart';
 
 import '../controller/detail_product_controller.dart';
 
-class myDetail extends GetView<DetailProductController> {
-  const myDetail({super.key});
+class DetailProductView extends GetView<DetailProductController> {
+  const DetailProductView({super.key});
   @override
   Widget build(BuildContext context) {
     // Get.lazyPut(() => CartController());
@@ -48,18 +48,12 @@ class myDetail extends GetView<DetailProductController> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const SizedBox(height: 12),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(12),
-                                  child: Image.network(
-                                    controller.detailProduct.value.thumbnail ??
-                                        "",
-                                    fit: BoxFit.fitWidth,
-                                  ),
-                                ),
-                              ],
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              child: Image.network(
+                                controller.detailProduct.value.thumbnail ?? "",
+                                fit: BoxFit.fitWidth,
+                              ),
                             ),
                             const SizedBox(height: 20),
                             Text(
