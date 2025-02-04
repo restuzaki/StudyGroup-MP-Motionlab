@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:project_motion/controller/favorite_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:project_motion/models/product_model.dart';
 import 'package:get/get.dart';
-import 'package:project_motion/utils/data_dummy.dart';
 import 'package:project_motion/widgets/navbar.dart';
-
 import '../controller/home_controller.dart';
 
 class MyHome extends GetView<HomeController> {
@@ -12,16 +12,26 @@ class MyHome extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(FavoriteController());
     return GetBuilder<HomeController>(
       init: HomeController(),
       builder: (_) {
-        return Obx(
-          () => controller.isLoading.value
-              ? const Material(
-                  child: Center(child: CircularProgressIndicator()),
-                )
-              : Scaffold(
-                  body: SafeArea(
+        return controller.isLoading
+            ? Container(
+                color: Colors.white,
+                child: const Center(
+                  child: CircularProgressIndicator(
+                    color: Color(0xFF00623B),
+                  ),
+                ),
+              )
+            : Scaffold(
+                body: SafeArea(
+                  child: RefreshIndicator.adaptive(
+                    onRefresh: () async {
+                      controller.getProduct();
+                      controller.getProductCategoryList();
+                    },
                     child: SingleChildScrollView(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: Column(
@@ -41,7 +51,7 @@ class MyHome extends GetView<HomeController> {
                               ),
                               IconButton(
                                 onPressed: () {
-                                  Get.toNamed('/cart');
+                                  Get.toNamed("/cart");
                                 },
                                 icon: const Icon(
                                   Icons.shopping_bag_outlined,
@@ -87,12 +97,12 @@ class MyHome extends GetView<HomeController> {
                               shrinkWrap: true,
                               scrollDirection: Axis.horizontal,
                               clipBehavior: Clip.none,
-                              itemCount: DataDummy.listDummyCategories.length,
+                              itemCount: controller.categoryList.length,
                               separatorBuilder: (context, index) =>
                                   const SizedBox(width: 12),
                               itemBuilder: (context, index) {
                                 final String data =
-                                    DataDummy.listDummyCategories[index];
+                                    controller.categoryList[index];
 
                                 return InkWell(
                                   borderRadius: BorderRadius.circular(50),
@@ -148,18 +158,16 @@ class MyHome extends GetView<HomeController> {
                               mainAxisSpacing: 20,
                               childAspectRatio: 0.67,
                             ),
-                            itemCount:
-                                controller.product.value.products?.length ?? 0,
+                            itemCount: controller.product.products?.length ?? 0,
                             itemBuilder: (context, index) {
-                              final data =
-                                  controller.product.value.products?[index];
+                              final data = controller.product.products?[index];
 
                               return InkWell(
                                 borderRadius: BorderRadius.circular(12),
                                 onTap: () {
                                   Get.toNamed(
-                                    '/detail',
-                                    arguments: {"id": data?.id ?? 0},
+                                    "/detail",
+                                    arguments: {"id": data?.id},
                                   );
                                 },
                                 child: Container(
@@ -178,26 +186,31 @@ class MyHome extends GetView<HomeController> {
                                     children: [
                                       ClipRRect(
                                         borderRadius: BorderRadius.circular(12),
-                                        child: Image.network(
-                                          data?.thumbnail ?? "",
+                                        child: CachedNetworkImage(
+                                          imageUrl: data?.thumbnail ??
+                                              "https://example.com/placeholder.png",
                                           fit: BoxFit.contain,
+                                          placeholder: (context, url) =>
+                                              const CircularProgressIndicator(
+                                            color: Color(0xFF00623B),
+                                          ),
+                                          errorWidget: (context, url, error) =>
+                                              const Icon(Icons.error),
                                         ),
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.only(
-                                          left: 8,
-                                          top: 8,
-                                        ),
+                                            left: 8, top: 8),
                                         child: Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
                                           children: [
                                             Text(
                                               data?.title ?? "",
                                               style: const TextStyle(
                                                   color: Colors.black),
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
                                             ),
                                             Row(
                                               mainAxisAlignment:
@@ -214,11 +227,31 @@ class MyHome extends GetView<HomeController> {
                                                             0xFF00623B),
                                                       ),
                                                 ),
+                                                Obx(() {
+                                                  return IconButton(
+                                                    onPressed: () {
+                                                      controller.toggleFavorite(
+                                                          data.id!);
+                                                    },
+                                                    icon: Icon(
+                                                      controller.isFavorite(
+                                                              data!.id)
+                                                          ? Icons.favorite
+                                                          : Icons
+                                                              .favorite_border,
+                                                      color:
+                                                          controller.isFavorite(
+                                                                  data.id)
+                                                              ? Colors.red
+                                                              : Colors.grey,
+                                                    ),
+                                                  );
+                                                }),
                                               ],
-                                            )
+                                            ),
                                           ],
                                         ),
-                                      )
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -230,12 +263,12 @@ class MyHome extends GetView<HomeController> {
                       ),
                     ),
                   ),
-                  bottomNavigationBar: bottomNavbar(
-                    currentIndex: controller.currentIndex.value,
-                    onTap: controller.onTabTapped,
-                  ),
                 ),
-        );
+                bottomNavigationBar: bottomNavbar(
+                  currentIndex: controller.currentIndex.value,
+                  onTap: controller.onTabTapped,
+                ),
+              );
       },
     );
   }

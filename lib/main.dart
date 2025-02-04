@@ -2,16 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:project_motion/controller/cart_controller.dart';
+import 'package:project_motion/controller/login_controller.dart';
 import 'package:project_motion/pages/Home.dart';
 import 'package:project_motion/pages/cart.dart';
 import 'package:project_motion/pages/detail_product.dart';
+import 'package:project_motion/pages/favorite_view.dart';
 import 'package:project_motion/pages/login.dart';
+import 'package:project_motion/pages/profile_view.dart';
 import 'package:project_motion/pages/register.dart';
 import 'package:project_motion/pages/transaksi.dart';
 import 'package:project_motion/pages/watch.dart';
 
 void main() {
   Get.put(CartController());
+  Get.put(LoginController());
   runApp(const MyApp());
 }
 
@@ -36,6 +40,8 @@ class MyApp extends StatelessWidget {
               GetPage(name: '/cart', page: () => myCart()),
               GetPage(name: '/transaksi', page: () => MyTransaksi()),
               GetPage(name: '/detail', page: () => myDetail()),
+              GetPage(name: '/favorite', page: () => myFavorite()),
+              GetPage(name: '/profil', page: () => MyProfile()),
             ],
           );
         });

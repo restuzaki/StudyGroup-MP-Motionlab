@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_motion/widgets/custom_bottom.dart';
@@ -11,9 +12,6 @@ class myDetail extends GetView<DetailProductController> {
   const myDetail({super.key});
   @override
   Widget build(BuildContext context) {
-    // Get.lazyPut(() => CartController());
-    // Get.put(CartController());
-
     return GetBuilder<DetailProductController>(
         init: DetailProductController(),
         builder: (_) {
@@ -30,6 +28,7 @@ class myDetail extends GetView<DetailProductController> {
                   title: const Text('Product'),
                   centerTitle: true,
                   actions: const [
+                    // Favorite
                     // IconButton(
                     //   onPressed: () {},
                     //   icon: Icon(
@@ -40,26 +39,36 @@ class myDetail extends GetView<DetailProductController> {
                   ],
                 ),
                 body: controller.isLoading.value
-                    ? const Material(
-                        child: Center(child: CircularProgressIndicator()))
+                    ? Container(
+                        color: Colors.white,
+                        child: const Center(
+                          child: CircularProgressIndicator(
+                            color: Color(0xFF00623B),
+                          ),
+                        ),
+                      )
                     : SingleChildScrollView(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const SizedBox(height: 12),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(12),
-                                  child: Image.network(
-                                    controller.detailProduct.value.thumbnail ??
-                                        "",
-                                    fit: BoxFit.fitWidth,
+                            Align(
+                              alignment: Alignment.center,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(12),
+                                child: CachedNetworkImage(
+                                  imageUrl:
+                                      controller.detailProduct.value.thumbnail!,
+                                  fit: BoxFit.fitWidth,
+                                  placeholder: (context, url) =>
+                                      const CircularProgressIndicator(),
+                                  errorWidget: (context, url, error) =>
+                                      const Icon(
+                                    Icons.error,
                                   ),
                                 ),
-                              ],
+                              ),
                             ),
                             const SizedBox(height: 20),
                             Text(
@@ -92,7 +101,7 @@ class myDetail extends GetView<DetailProductController> {
                     onTap: () {
                       // final cartController = Get.find<CartController>();
                       // cartController.incrementQuantity(controller.detailProduct.value.id ?? 0) ;
-                      Get.toNamed('/cart');
+                      Get.toNamed("/cart");
                     },
                   ),
                 ),
