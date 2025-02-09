@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "909714109947",
+    "project_id": "motiontodo8-8f4e4",
+    "storage_bucket": "motiontodo8-8f4e4.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:909714109947:android:372e266a0808256496475e",
+        "android_client_info": {
+          "package_name": "com.example.motion_flutter_firebase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuBqI9thhX9BMtfBih-pmH3oVZySqFdA4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
